@@ -20,7 +20,8 @@ function initializePage() {
 
 		// this is the URL we'll call
 		var url_call = '/project/'+idNumber;
-
+		// issue the GET request
+		
 		// How to respond to the GET request
 		function addProjectDetails(project_json) {
 			// We need to compute a display string for the date
@@ -57,18 +58,23 @@ function initializePage() {
 		$.get(url_call, addProjectDetails);
 	});
 
+
 	$('#newProjectSubmitButton').click(function(e) {
 		console.log('clicked');
 		var title = $('#new-project-form #title').val();
-		var image_url = $('#new-project-form #image_url').val();
+		console.log(title);
+		var image_url = $('#new-project-form #image_url').val();		
 		var date = $('#new-project-form #date').val();
 		var summary = $('#new-project-form #summary').val();
+		console.log(summary);
 		var json = {
-			'project_title': title,
-			'image_url': image_url,
+			'title': title,
+			'image': image_url,
 			'date':  date,
 			'summary': summary
 		};
+		console.log(json);
+		console.log(json.summary);
 		$.post('/project/new', json, function() {
 			window.location.href = '/'; // reload the page
 		});
